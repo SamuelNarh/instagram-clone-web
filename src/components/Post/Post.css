@@ -27,3 +27,25 @@ border-bottom: 1px solid lightgrey;
     padding: 20px;
 
 }
+
+.post_header{
+  display: flex;
+    flex-direction: row;
+     justify-content: space-between;  
+     margin: 10px;
+     padding-left: 10px;
+}
+
+.post_header_item{
+    display: flex;
+    flex-direction: row;
+}
+.post_header_item em{
+    padding-left: 4px;
+}
+
+.profile{
+    width: 30px;
+    border-radius: 50%;
+    height: 30px;
+}

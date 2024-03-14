@@ -1,0 +1,19 @@
+.header{
+    background: #4f43;
+}
+
+.header-app{
+position: sticky;
+top: 0;
+z-index: 1;
+background-color: white;
+}
+
+.header_image{
+    object-fit: contain;
+    width: 200px;
+}
+
+.login{
+    color: rgb(210, 197, 197);
+}

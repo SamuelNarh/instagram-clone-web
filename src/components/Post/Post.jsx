@@ -5,11 +5,13 @@ const BASE_URL = "http://127.0.0.1:8000/";
 const Post = (props) => {
   const [imageUrl, SetImageUrl] = useState("");
   const [comments, SetComment] = useState([]);
+  const [profile, SetProfile] = useState("");
   useEffect(() => {
-    console.log(props.post.image_url_type);
+    SetProfile(BASE_URL + props.post.image_url);
     if (props.post.image_url_type === "absolute") {
       SetImageUrl(BASE_URL + props.post.image_url);
     } else {
+      
       SetImageUrl(props.post.image_url);
     }
   }, []);
@@ -20,14 +22,25 @@ const Post = (props) => {
 
   return (
     <div className="post">
-      <img className="post_image" src={imageUrl} />
+      <div className="post_header">
+        <div className="post_header_item">
+          <img className="profile" src={profile} alt="profile_pics" />
+          <strong>
+            <em>{props.post.user.username}</em>
+          </strong>
+        </div>
+        <div>
+          <button>Delete</button>
+        </div>
+      </div>
+      <img className="post_image" src={imageUrl} alt='post_image'/>
       <h4 className="post_text">{props.post.caption}</h4>
       <div className="post_comments">
         {comments.map((comment) => (
-          <p key={comment.id}>
+          <div key={comment.id}>
             <strong>{comment.username}: </strong>
             {comment.text}
-          </p>
+          </div>
         ))}
       </div>
     </div>

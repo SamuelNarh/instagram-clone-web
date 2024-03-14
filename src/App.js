@@ -22,14 +22,14 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
-        alert(err);
+        alert("Failed to connect to the server");
       });
   }, []);
   return (
     <>
       <div className="app_posts">
         {posts.map((post) => {
-          return <Post post={post} />;
+          return <Post key={post.id} post={post} />;
         })}
       </div>
     </>

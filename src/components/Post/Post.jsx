@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Post.css";
+import Button from "../UI/Button/Button";
+
 const BASE_URL = "http://127.0.0.1:8000/";
 
 const Post = (props) => {
@@ -11,7 +13,6 @@ const Post = (props) => {
     if (props.post.image_url_type === "absolute") {
       SetImageUrl(BASE_URL + props.post.image_url);
     } else {
-      
       SetImageUrl(props.post.image_url);
     }
   }, []);
@@ -30,10 +31,10 @@ const Post = (props) => {
           </strong>
         </div>
         <div>
-          <button>Delete</button>
+          <Button className="delete">Delete</Button>
         </div>
       </div>
-      <img className="post_image" src={imageUrl} alt='post_image'/>
+      <img className="post_image" src={imageUrl} alt="post_image" />
       <h4 className="post_text">{props.post.caption}</h4>
       <div className="post_comments">
         {comments.map((comment) => (

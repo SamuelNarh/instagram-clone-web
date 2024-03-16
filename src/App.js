@@ -2,16 +2,21 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import Post from "./components/Post/Post";
 import Header from "./components/Header/Header";
+import LoginIn from "./components/Forms/LogIn";
+import SignUp from "./components/Forms/SignUp";
 
 const BASE_URL = "http://127.0.0.1:8000";
 
 function App() {
   const [posts, SetPost] = useState([]);
+  const [signin, SetSignIn] = useState(false);
+  const [signup, SetSignUp] = useState(false);
+  const [username, SetUsername] = useState("");
+  const [LogIn, SetLogIn] = useState(false);
 
   useEffect(() => {
     fetch(`${BASE_URL}/post/all`)
       .then((res) => {
-        // console.log(res);
         if (res.ok) {
           return res.json();
         }
@@ -28,22 +33,53 @@ function App() {
           const d_b = new Date(
             Date.UTC(t_b[0], t_b[1] - 1, t_b[2], t_b[3], t_b[4], t_b[5])
           );
-          return d_b -d_a
+          return d_b - d_a;
         });
         return result;
       })
       .then((data) => {
         SetPost(data);
-        console.log(data);
+        // console.log(data);
       })
       .catch((err) => {
         console.log(err);
         alert("Failed to connect to the server");
       });
   }, []);
+
+  const ToggleSigIn = () => {
+    SetSignIn(true);
+  };
+  const ToggleSigUp = () => {
+    SetSignUp(true);
+  };
+
+  const SignIn = () => {
+    SetSignIn(false);
+  };
+
+  const UsernameHandler = (username) => {
+    SetUsername(() => {
+      return `Welcome ${username}`;
+    });
+  };
+
+  const Auth = (access_token) => {
+    SetLogIn(true);
+  };
+
   return (
     <>
-    <Header/>
+      {signin && (
+        <LoginIn SignIn={SignIn} username={UsernameHandler} auth={Auth} />
+      )}
+      {signup && <SignUp />}
+      <Header
+        toggleSignIn={ToggleSigIn}
+        toggleSignUp={ToggleSigUp}
+        Login={LogIn}
+      />
+      <h3>{username}</h3>
       <div className="app_posts">
         {posts.map((post) => {
           return <Post key={post.id} post={post} />;

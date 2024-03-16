@@ -1,19 +1,29 @@
-.header{
-    background: #4f43;
+.header {
+  background: rgba(207, 235, 207, 0.2);
 }
 
-.header-app{
-position: sticky;
-top: 0;
-z-index: 1;
-background-color: white;
+.header-app {
+  position: sticky;
+  display: flex;
+  justify-content: space-between;
+  top: 0;
+  z-index: 1;
+  background-color: white;
+  object-fit: contain;
+  padding: 20px;
 }
 
-.header_image{
-    object-fit: contain;
-    width: 200px;
+.header_image {
+  object-fit: contain;
+  width: 200px;
 }
 
-.login{
-    color: rgb(210, 197, 197);
+.login {
+  color: rgb(210, 197, 197);
+  margin-right: 10px;
+}
+
+.header_items {
+  margin: 10px;
+  margin-right: 20px;
 }

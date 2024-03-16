@@ -49,3 +49,10 @@ border-bottom: 1px solid lightgrey;
     border-radius: 50%;
     height: 30px;
 }
+.delete{
+    background: rgb(205, 84, 84);
+    color:#ffff;
+}
+.delete:hover{
+    background: rgb(184, 7, 7);
+}

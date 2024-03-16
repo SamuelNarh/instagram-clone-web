@@ -1,27 +1,31 @@
-import React,{useState} from "react";
-import './Header.css'
+import React from "react";
+import "./Header.css";
 import Button from "../UI/Button/Button";
 
-const Header = () => {
+const Header = (props) => {
+  const SignIn = () => {
+    props.toggleSignIn();
+  };
+  const SignUp = () => {
+    props.toggleSignUp();
+  };
 
-    const [openSignIn,SetOpenSignIn] = useState(false)
-    const [openSignUp, SetOpenSignUp] = useState(false);
-
-    const SignIn=()=>{
-        SetOpenSignIn(true)
-    }
-    const SignUp=()=>{
-        SetOpenSignUp(true)
-    }
+  const LogOut =()=>{
+    
+  }
 
   return (
     <div className="header">
       <div className="header-app">
         <img className="header_image" src="" alt="instagram logo" />
-      </div>
-      <div>
-        <Button className='login' onClick={SignIn}>Login</Button>
-        <Button onClick={SignUp}>SignUp</Button>
+        {props.Login ? (
+          <Button onClick={LogOut}>Log Out</Button>
+        ) : (
+          <div>
+            <Button onClick={SignIn}>Log In</Button>
+            <Button onClick={SignUp}>Sign Up</Button>
+          </div>
+        )}
       </div>
     </div>
   );

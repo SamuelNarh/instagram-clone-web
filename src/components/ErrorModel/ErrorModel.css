@@ -1,0 +1,18 @@
+.Error {
+  font-size: 20px;
+  color: white;
+  /* padding: 20px; */
+}
+.Error header {
+  background: rgb(162, 13, 13);
+}
+
+.Error footer {
+  padding-top: 10px;
+  background: white;
+  color: rgb(14, 6, 6);
+}
+.Errorbtn {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}

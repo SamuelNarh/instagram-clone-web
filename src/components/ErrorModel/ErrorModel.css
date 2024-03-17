@@ -1,18 +1,47 @@
-.Error {
-  font-size: 20px;
-  color: white;
-  /* padding: 20px; */
-}
-.Error header {
-  background: rgb(162, 13, 13);
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.75);
 }
 
-.Error footer {
-  padding-top: 10px;
-  background: white;
-  color: rgb(14, 6, 6);
+.modal {
+  position: fixed;
+  top: 10vh;
+  left: 10%;
+  width: 40%;
+  z-index: 100;
+  overflow: hidden;
 }
-.Errorbtn {
-  margin-top: 10px;
-  margin-bottom: 10px;
+
+.header {
+  background: #8e0419;
+  padding: 1rem;
+}
+
+.header h2 {
+  margin: 0;
+  color: white;
+}
+
+.content {
+  padding: 1rem;
+  color: #ffff;
+}
+
+.actions {
+  padding: 1rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+@media (min-width: 768px) {
+  .modal {
+    left: calc(50% - 20rem);
+    width: 40rem;
+  }
 }

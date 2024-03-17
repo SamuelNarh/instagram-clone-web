@@ -1,4 +1,4 @@
-.header {
+.head {
   background: rgba(207, 235, 207, 0.2);
 }
 
@@ -15,7 +15,7 @@
 
 .header_image {
   object-fit: contain;
-  width: 200px;
+  width: 100px;
 }
 
 .login {

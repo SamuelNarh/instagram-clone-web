@@ -4,16 +4,26 @@ import Card from "../UI/Card/Card";
 import Button from "../UI/Button/Button";
 
 const ErrorModel = (props) => {
-
-    const CloseError=() =>{
-        props.closeError()
-    }
+  const CloseError = () => {
+    props.closeError();
+  };
 
   return (
     <Card className="Error">
-      <header>Invalid Credentials</header>
-      <footer>Please Enter a valid Name and Password</footer>
-      <Button className='Errorbtn' onClick={CloseError} >Okay</Button>
+      <div>
+        <div className="backdrop" />
+        <Card className="modal">
+          <header className="header">
+            <h2>Wrong Information</h2>
+          </header>
+          <div className="content">
+            <p>You need to provide correct credentials to login</p>
+          </div>
+          <footer className="actions">
+            <Button onClick={CloseError}>Okay</Button>
+          </footer>
+        </Card>
+      </div>
     </Card>
   );
 };

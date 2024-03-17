@@ -9,7 +9,7 @@ const BASE_URL = "http://127.0.0.1:8000";
 
 function App() {
   const [posts, SetPost] = useState([]);
-  const [signin, SetSignIn] = useState(false);
+  const [signin, SetSignIn] = useState(null);
   const [signup, SetSignUp] = useState(false);
   const [username, SetUsername] = useState("");
   const [LogIn, SetLogIn] = useState(false);
@@ -64,20 +64,30 @@ function App() {
     });
   };
 
-  const Auth = (access_token) => {
+  const Auth = () => {
     SetLogIn(true);
   };
+
+   const LogOut = () => {
+     SetLogIn(false);
+   };
+
+const CloseLoginHandler=()=>{
+  SetSignIn(null)
+
+}
 
   return (
     <>
       {signin && (
-        <LoginIn SignIn={SignIn} username={UsernameHandler} auth={Auth} />
+        <LoginIn SignIn={SignIn} username={UsernameHandler} auth={Auth} close={CloseLoginHandler}/>
       )}
       {signup && <SignUp />}
       <Header
         toggleSignIn={ToggleSigIn}
         toggleSignUp={ToggleSigUp}
         Login={LogIn}
+        logout={LogOut}
       />
       <h3>{username}</h3>
       <div className="app_posts">

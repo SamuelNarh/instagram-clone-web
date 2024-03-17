@@ -1,6 +1,7 @@
 import React from "react";
 import "./Header.css";
 import Button from "../UI/Button/Button";
+import instagram from '../images/instagram.jpeg';
 
 const Header = (props) => {
   const SignIn = () => {
@@ -11,13 +12,13 @@ const Header = (props) => {
   };
 
   const LogOut =()=>{
-    
+    props.logout();
   }
 
   return (
-    <div className="header">
+    <div className="head">
       <div className="header-app">
-        <img className="header_image" src="" alt="instagram logo" />
+        <img className="header_image" src={instagram} alt="instagram logo" />
         {props.Login ? (
           <Button onClick={LogOut}>Log Out</Button>
         ) : (

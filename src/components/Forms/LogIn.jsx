@@ -3,6 +3,7 @@ import "./Forms.css";
 import Card from "../UI/Card/Card";
 import Button from "../UI/Button/Button";
 import ErrorModel from "../ErrorModel/ErrorModel";
+import instagram_logo from "../images/instagram.jpeg";
 
 const LoginInForm = (props) => {
   const [Username, SetUsername] = useState("");
@@ -46,10 +47,10 @@ const LoginInForm = (props) => {
         if (res.ok) {
           return res.json();
         }
+        SetError(true);
         throw res;
       })
       .then((data) => {
-        console.log(data);
         props.SignIn();
         props.auth(data.access_token);
         props.username(data.username);
@@ -65,11 +66,19 @@ const LoginInForm = (props) => {
     SetError(false);
   };
 
+  const CloseSignIn =()=>{
+    props.close()
+  }
   return (
     <>
       {error && <ErrorModel closeError={closeError} />}
-      <div className="backdrop">
+      <div className="backdrop" onClick={CloseSignIn}>
         <Card className="formcard">
+          <img
+            src={instagram_logo}
+            className="header_image"
+            alt="instagram_logo"
+          />
           <form className="form" onSubmit={LoginHandler}>
             <label>
               <h3>SignIn</h3>

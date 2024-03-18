@@ -4,6 +4,7 @@ import Post from "./components/Post/Post";
 import Header from "./components/Header/Header";
 import LoginIn from "./components/Forms/LogIn";
 import SignUp from "./components/Forms/SignUp";
+import PostImage from "./components/Post-Image/Post-Image";
 
 const BASE_URL = "http://127.0.0.1:8000";
 
@@ -13,7 +14,14 @@ function App() {
   const [signup, SetSignUp] = useState(false);
   const [username, SetUsername] = useState("");
   const [LogIn, SetLogIn] = useState(null);
-  const [Access_Token, SetAccess_Token] = useState("");
+  const [Access_Token, SetAccess_Token] = useState(null);
+
+
+  useEffect(() => {
+    const token = localStorage.getItem("loggedIn");
+    if (token === "1") SetLogIn(true);
+  }, [Access_Token]);
+
 
   useEffect(() => {
     fetch(`${BASE_URL}/post/all`)
@@ -40,20 +48,12 @@ function App() {
       })
       .then((data) => {
         SetPost(data);
-        // console.log(data);
       })
       .catch((err) => {
         console.log(err);
         alert("Failed to connect to the server");
       });
   }, []);
-
-  useEffect(() => {
-    const Token = localStorage.getItem("loggedIn");
-    if (Token === Access_Token) {
-      SetLogIn(true);
-    }
-  }, [Access_Token]);
 
   const ToggleSigIn = () => {
     SetSignIn(true);
@@ -72,10 +72,10 @@ function App() {
     });
   };
 
-  const Auth = (access_token) => {
+  const Access_TokenHandler = (access_token) => {
     SetLogIn(true);
-    localStorage.setItem("loggedIn", Access_Token);
     SetAccess_Token(access_token);
+    localStorage.setItem("loggedIn","1");
   };
 
   const LogOut = () => {
@@ -87,7 +87,7 @@ function App() {
 
   const CloseFormHandler = () => {
     SetSignIn(null);
-    SetSignUp(null)
+    SetSignUp(null);
   };
 
   return (
@@ -96,11 +96,17 @@ function App() {
         <LoginIn
           SignIn={SignIn}
           username={UsernameHandler}
-          auth={Auth}
+          auth={Access_TokenHandler}
           close={CloseFormHandler}
         />
       )}
-      {signup && <SignUp close={CloseFormHandler} />}
+      {signup && (
+        <SignUp
+          close={CloseFormHandler}
+          auth={Access_TokenHandler}
+          username={UsernameHandler}
+        />
+      )}
       <Header
         toggleSignIn={ToggleSigIn}
         toggleSignUp={ToggleSigUp}
@@ -117,6 +123,11 @@ function App() {
           return <Post key={post.id} post={post} />;
         })}
       </div>
+      {LogIn ? (
+        <PostImage />
+      ) : (
+        <p>You need to login or SignUp to post</p>
+      )}
     </>
   );
 }

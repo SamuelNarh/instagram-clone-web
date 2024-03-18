@@ -32,7 +32,7 @@ const SignUp = (props) => {
       password: password,
     });
 
-    //Use to data to the fetch call
+    //Data sent to the fetch call and method
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -47,6 +47,9 @@ const SignUp = (props) => {
       })
       .then((data) => {
         console.log(data);
+        props.auth()
+        props.username(data.username)
+        props.close()
       })
       .catch((err) => {
         console.log(err);

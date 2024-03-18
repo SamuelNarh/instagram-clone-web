@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState} from "react";
 import "./Forms.css";
 import Card from "../UI/Card/Card";
 import Button from "../UI/Button/Button";
@@ -9,6 +9,7 @@ const LoginInForm = (props) => {
   const [Username, SetUsername] = useState("");
   const [Password, SetPassword] = useState("");
   const [error, SetError] = useState(false);
+  
 
   const UsernameHandler = (event) => {
     SetUsername(event.target.value);
@@ -53,7 +54,7 @@ const LoginInForm = (props) => {
       .then((data) => {
         props.SignIn();
         props.auth(data.access_token);
-        props.username(data.username);
+        props.username(data.username)
       })
       .catch((err) => {
         console.log(err);

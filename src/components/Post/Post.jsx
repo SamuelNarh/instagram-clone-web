@@ -8,9 +8,7 @@ const BASE_URL = "http://127.0.0.1:8000/";
 const Post = (props) => {
   const [imageUrl, SetImageUrl] = useState("");
   const [comments, SetComment] = useState([]);
-  const [profile, SetProfile] = useState("");
   useEffect(() => {
-    SetProfile(BASE_URL + props.post.image_url);
     if (props.post.image_url_type === "absolute") {
       SetImageUrl(BASE_URL + props.post.image_url);
     } else {
@@ -26,7 +24,7 @@ const Post = (props) => {
     <div className="post">
       <div className="post_header">
         <div className="post_header_item">
-          <img className="profile" src={profile} alt="profile_pics" />
+          <img className="profile" src="{profile}" alt="profile_pics" />
           <strong>
             <em>{props.post.user.username}</em>
           </strong>

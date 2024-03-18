@@ -9,3 +9,15 @@
 .app_posts{
   padding: 20px;
 }
+
+.welcome-message{
+  border: 2px solid #d18024;
+  width: 400px;
+  height: 30px;
+}
+
+.welcome-message h3{
+  font-size: 20px;
+  text-align: center;
+  font-family:monospace
+}

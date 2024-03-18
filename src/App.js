@@ -12,7 +12,8 @@ function App() {
   const [signin, SetSignIn] = useState(null);
   const [signup, SetSignUp] = useState(false);
   const [username, SetUsername] = useState("");
-  const [LogIn, SetLogIn] = useState(false);
+  const [LogIn, SetLogIn] = useState(null);
+  const [Access_Token, SetAccess_Token] = useState("");
 
   useEffect(() => {
     fetch(`${BASE_URL}/post/all`)
@@ -47,6 +48,13 @@ function App() {
       });
   }, []);
 
+  useEffect(() => {
+    const Token = localStorage.getItem("loggedIn");
+    if (Token === Access_Token) {
+      SetLogIn(true);
+    }
+  }, [Access_Token]);
+
   const ToggleSigIn = () => {
     SetSignIn(true);
   };
@@ -64,32 +72,46 @@ function App() {
     });
   };
 
-  const Auth = () => {
+  const Auth = (access_token) => {
     SetLogIn(true);
+    localStorage.setItem("loggedIn", Access_Token);
+    SetAccess_Token(access_token);
   };
 
-   const LogOut = () => {
-     SetLogIn(false);
-   };
+  const LogOut = () => {
+    localStorage.removeItem("loggedIn");
+    SetAccess_Token("");
+    SetUsername("");
+    SetLogIn(false);
+  };
 
-const CloseLoginHandler=()=>{
-  SetSignIn(null)
-
-}
+  const CloseFormHandler = () => {
+    SetSignIn(null);
+    SetSignUp(null)
+  };
 
   return (
     <>
       {signin && (
-        <LoginIn SignIn={SignIn} username={UsernameHandler} auth={Auth} close={CloseLoginHandler}/>
+        <LoginIn
+          SignIn={SignIn}
+          username={UsernameHandler}
+          auth={Auth}
+          close={CloseFormHandler}
+        />
       )}
-      {signup && <SignUp />}
+      {signup && <SignUp close={CloseFormHandler} />}
       <Header
         toggleSignIn={ToggleSigIn}
         toggleSignUp={ToggleSigUp}
         Login={LogIn}
         logout={LogOut}
       />
-      <h3>{username}</h3>
+      {username && (
+        <div className="welcome-message">
+          <h3>{username}</h3>
+        </div>
+      )}
       <div className="app_posts">
         {posts.map((post) => {
           return <Post key={post.id} post={post} />;

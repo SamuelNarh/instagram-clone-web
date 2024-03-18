@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Post.css";
 import Button from "../UI/Button/Button";
+import Comment from "../Comment/Comment";
 
 const BASE_URL = "http://127.0.0.1:8000/";
 
@@ -37,12 +38,9 @@ const Post = (props) => {
       <img className="post_image" src={imageUrl} alt="post_image" />
       <h4 className="post_text">{props.post.caption}</h4>
       <div className="post_comments">
-        {comments.map((comment) => (
-          <div key={comment.id}>
-            <strong>{comment.username}: </strong>
-            {comment.text}
-          </div>
-        ))}
+        {comments.map((comment) => {
+          return <Comment key={comment.id} comment={comment} />;
+        })}
       </div>
     </div>
   );

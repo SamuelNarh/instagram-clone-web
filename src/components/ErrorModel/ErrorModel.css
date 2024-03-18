@@ -12,7 +12,7 @@
 .modal {
   position: fixed;
   top: 10vh;
-  left: 10%;
+  left: 20%;
   width: 40%;
   z-index: 100;
   overflow: hidden;
@@ -20,10 +20,10 @@
 
 .header {
   background: #8e0419;
-  padding: 1rem;
+  padding: 0.5rem;
 }
 
-.header h2 {
+.header h3 {
   margin: 0;
   color: white;
 }
@@ -41,7 +41,7 @@
 
 @media (min-width: 768px) {
   .modal {
-    left: calc(50% - 20rem);
-    width: 40rem;
+    left: calc(62% - 20rem);
+    width: 25rem;
   }
 }

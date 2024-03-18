@@ -66,41 +66,37 @@ const LoginInForm = (props) => {
     SetError(false);
   };
 
-  const CloseSignIn =()=>{
-    props.close()
-  }
   return (
     <>
       {error && <ErrorModel closeError={closeError} />}
-      <div className="backdrop" onClick={CloseSignIn}>
-        <Card className="formcard">
-          <img
-            src={instagram_logo}
-            className="header_image"
-            alt="instagram_logo"
+      <div className="backdrop" onClick={props.close} />
+      <Card className="formcard">
+        <img
+          src={instagram_logo}
+          className="header_image"
+          alt="instagram_logo"
+        />
+        <form className="form" onSubmit={LoginHandler}>
+          <label>
+            <h3>SignIn</h3>
+          </label>
+          <input
+            type="text"
+            placeholder="Enter Username"
+            onChange={UsernameHandler}
+            value={Username}
           />
-          <form className="form" onSubmit={LoginHandler}>
-            <label>
-              <h3>SignIn</h3>
-            </label>
-            <input
-              type="text"
-              placeholder="Enter Username"
-              onChange={UsernameHandler}
-              value={Username}
-            />
-            <input
-              type="password"
-              placeholder="Enter Password"
-              onChange={PasswordHandler}
-              value={Password}
-            />
-            <Button type="submit" className="lgbutton">
-              LogIn
-            </Button>
-          </form>
-        </Card>
-      </div>
+          <input
+            type="password"
+            placeholder="Enter Password"
+            onChange={PasswordHandler}
+            value={Password}
+          />
+          <Button type="submit" className="lgbutton">
+            LogIn
+          </Button>
+        </form>
+      </Card>
     </>
   );
 };

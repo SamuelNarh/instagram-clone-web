@@ -4,10 +4,6 @@ import Card from "../UI/Card/Card";
 import Button from "../UI/Button/Button";
 
 const ErrorModel = (props) => {
-  const CloseError = () => {
-    props.closeError();
-  };
-
   return (
     <Card className="Error">
       <div>

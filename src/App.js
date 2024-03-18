@@ -12,16 +12,35 @@ function App() {
   const [posts, SetPost] = useState([]);
   const [signin, SetSignIn] = useState(null);
   const [signup, SetSignUp] = useState(false);
+  const [LogIn, SetLogin] = useState(null);
   const [username, SetUsername] = useState("");
-  const [LogIn, SetLogIn] = useState(null);
   const [Access_Token, SetAccess_Token] = useState(null);
-
+  const [Token_Type, SetToken_Type] = useState(null);
+  const [User_id, SetUser_id] = useState("");
 
   useEffect(() => {
-    const token = localStorage.getItem("loggedIn");
-    if (token === "1") SetLogIn(true);
-  }, [Access_Token]);
+    // Gets the LocalStorage stored Item and reset the State
+    SetAccess_Token(localStorage.getItem("Auth_Token"));
+    SetToken_Type(localStorage.getItem("Token_Type"));
+    SetUser_id(localStorage.getItem("user_id"));
+    SetUsername(localStorage.getItem("username"));
+  }, []);
 
+  useEffect(() => {
+    // If granted access =>stores data into local storage
+    if (Access_Token) {
+      localStorage.setItem("Auth_Token", Access_Token);
+    }
+    if (Token_Type) {
+      localStorage.setItem("Token_Type", Token_Type);
+    }
+    if (User_id) {
+      localStorage.setItem("user_id", User_id);
+    }
+    if (username) {
+      localStorage.setItem("username", username);
+    }
+  }, [Access_Token, Token_Type, User_id]);
 
   useEffect(() => {
     fetch(`${BASE_URL}/post/all`)
@@ -64,6 +83,7 @@ function App() {
 
   const SignIn = () => {
     SetSignIn(false);
+    SetLogin(true);
   };
 
   const UsernameHandler = (username) => {
@@ -73,16 +93,24 @@ function App() {
   };
 
   const Access_TokenHandler = (access_token) => {
-    SetLogIn(true);
     SetAccess_Token(access_token);
-    localStorage.setItem("loggedIn","1");
+  };
+  const Token_TypeHandler = (Token_Type) => {
+    SetToken_Type(Token_Type);
+  };
+  const User_idHandler = (user_id) => {
+    SetUser_id(user_id);
   };
 
-  const LogOut = () => {
-    localStorage.removeItem("loggedIn");
-    SetAccess_Token("");
-    SetUsername("");
-    SetLogIn(false);
+
+  const LogOutHandler = () => {
+    localStorage.removeItem("Auth_Token");
+    localStorage.removeItem("Token_Type");
+    localStorage.removeItem("user_id");
+    localStorage.removeItem("username");
+    SetLogin(false);
+    SetUsername("")
+    SetAccess_Token("")
   };
 
   const CloseFormHandler = () => {
@@ -98,20 +126,16 @@ function App() {
           username={UsernameHandler}
           auth={Access_TokenHandler}
           close={CloseFormHandler}
+          Token_Type={Token_TypeHandler}
+          user_id={User_idHandler}
         />
       )}
-      {signup && (
-        <SignUp
-          close={CloseFormHandler}
-          auth={Access_TokenHandler}
-          username={UsernameHandler}
-        />
-      )}
+      {signup && <SignUp close={CloseFormHandler} username={UsernameHandler} />}
       <Header
         toggleSignIn={ToggleSigIn}
         toggleSignUp={ToggleSigUp}
-        Login={LogIn}
-        logout={LogOut}
+        Login={Access_Token}
+        logout={LogOutHandler}
       />
       {username && (
         <div className="welcome-message">
@@ -123,8 +147,12 @@ function App() {
           return <Post key={post.id} post={post} />;
         })}
       </div>
-      {LogIn ? (
-        <PostImage />
+      {Access_Token ? (
+        <PostImage
+          Access_Token={Access_Token}
+          Token_Type={Token_Type}
+          user_id={User_id}
+        />
       ) : (
         <p>You need to login or SignUp to post</p>
       )}

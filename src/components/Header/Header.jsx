@@ -1,7 +1,7 @@
 import React from "react";
 import "./Header.css";
 import Button from "../UI/Button/Button";
-import instagram from '../images/instagram.jpeg';
+import instagram from "../images/instagram.jpeg";
 
 const Header = (props) => {
   return (

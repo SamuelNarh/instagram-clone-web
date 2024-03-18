@@ -52,9 +52,12 @@ const LoginInForm = (props) => {
         throw res;
       })
       .then((data) => {
+        console.log(data)
         props.SignIn();
         props.auth(data.access_token);
         props.username(data.username)
+        props.Token_Type(data.token_type);
+        props.user_id(data.user_id);
       })
       .catch((err) => {
         console.log(err);

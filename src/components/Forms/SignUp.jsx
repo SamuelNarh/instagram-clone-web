@@ -47,8 +47,7 @@ const SignUp = (props) => {
       })
       .then((data) => {
         console.log(data);
-        props.auth()
-        props.username(data.username)
+        props.username(data.username);
         props.close()
       })
       .catch((err) => {

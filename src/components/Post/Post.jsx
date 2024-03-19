@@ -20,6 +20,31 @@ const Post = (props) => {
     SetComment(props.post.comments);
   }, []);
 
+  // Handle Deletion of Post
+  const DeleteHandler = (event) => {
+    event.preventDefault();
+    const requestOptions = {
+      method: "GET",
+      //for authorization at the backend, we need token_type and access_token to verify user.
+      headers: new Headers({
+      Authorization: props.Token_Type + " " + props.Access_Token,
+      }),
+    };
+
+    fetch(`http://127.0.0.1:8000/post/delete/` + props.post.id, requestOptions)
+      .then((res) => {
+        if (res.ok) {
+          window.location.reload();
+        }
+        throw res;
+      })
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <div className="post">
       <div className="post_header">
@@ -30,7 +55,9 @@ const Post = (props) => {
           </strong>
         </div>
         <div>
-          <Button className="delete">Delete</Button>
+          <Button className="delete" onClick={DeleteHandler}>
+            Delete
+          </Button>
         </div>
       </div>
       <img className="post_image" src={imageUrl} alt="post_image" />

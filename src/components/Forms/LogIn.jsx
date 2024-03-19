@@ -1,15 +1,13 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import "./Forms.css";
 import Card from "../UI/Card/Card";
 import Button from "../UI/Button/Button";
-import ErrorModel from "../ErrorModel/ErrorModel";
+import AlertModel from "../AlertModel/AlertModel";
 import instagram_logo from "../images/instagram.jpeg";
 
 const LoginInForm = (props) => {
   const [Username, SetUsername] = useState("");
   const [Password, SetPassword] = useState("");
-  const [error, SetError] = useState(false);
-  
 
   const UsernameHandler = (event) => {
     SetUsername(event.target.value);
@@ -28,7 +26,7 @@ const LoginInForm = (props) => {
     //   return;
     // }
     if (Password.length < 1) {
-      SetError(true);
+      props.OpenErrorHandler();
       return;
     }
 
@@ -48,14 +46,14 @@ const LoginInForm = (props) => {
         if (res.ok) {
           return res.json();
         }
-        SetError(true);
+        props.OpenErrorHandler();
         throw res;
       })
       .then((data) => {
-        console.log(data)
+        console.log(data);
         props.SignIn();
         props.auth(data.access_token);
-        props.username(data.username)
+        props.username(data.username);
         props.Token_Type(data.token_type);
         props.user_id(data.user_id);
       })
@@ -66,13 +64,15 @@ const LoginInForm = (props) => {
     SetUsername("");
   };
 
-  const closeError = () => {
-    SetError(false);
-  };
-
   return (
     <>
-      {error && <ErrorModel closeError={closeError} />}
+      {props.error && (
+        <AlertModel
+          title={`User not Found!!!`}
+          message={`Sorrry!!!. I can't find you in my Database. `}
+          CloseErrorHandler={props.CloseErrorHandler}
+        />
+      )}
       <div className="backdrop" onClick={props.close} />
       <Card className="formcard">
         <img

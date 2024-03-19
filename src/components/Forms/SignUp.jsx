@@ -3,13 +3,13 @@ import Card from "../UI/Card/Card";
 import Button from "../UI/Button/Button";
 import "./Forms.css";
 import instagram_logo from "../images/instagram.jpeg";
-import ErrorModel from "../ErrorModel/ErrorModel";
+import AlertModel from "../AlertModel/AlertModel";
 
 const SignUp = (props) => {
-  const [Error, SetError] = useState(null);
   const [username, SetUsername] = useState("");
   const [email, SetEmail] = useState("");
   const [password, SetPassword] = useState("");
+  const [SignUpSuccess, SetSignUpSuccess] = useState(null);
 
   const usernameHandler = (event) => {
     SetUsername(event.target.value);
@@ -22,10 +22,14 @@ const SignUp = (props) => {
     SetPassword(event.target.value);
   };
 
+  const CloseSuccessHandler = () => {
+    SetSignUpSuccess(false);
+  };
+
   const SignUpHandler = (event) => {
     event.preventDefault();
 
-// What to send? sends this data form to the server:
+    // What to send? sends this data form to the server:
     const json_string = JSON.stringify({
       username: username,
       email: email,
@@ -47,8 +51,9 @@ const SignUp = (props) => {
       })
       .then((data) => {
         console.log(data);
-        props.username(data.username);
-        props.close()
+        SetUsername(data.username);
+        SetSignUpSuccess(true);
+        return;
       })
       .catch((err) => {
         console.log(err);
@@ -59,14 +64,19 @@ const SignUp = (props) => {
     SetPassword("");
   };
 
-  const closeError = () => {
-    SetError(false);
-  };
-
   return (
     <>
-      {Error && <ErrorModel closeError={closeError} />}
-      <div className="backdrop" onClick={props.close} />
+      {SignUpSuccess && (
+        <AlertModel
+          message={`Welcome ${username} .I am happy to have you here!!!`}
+          title={`Succeful Sign Up`}
+          CloseErrorHandler={CloseSuccessHandler}
+        />
+      )}
+      <div
+        className="backdrop"
+        onClick={(props.close)}
+      />
       <Card className="formcard">
         <img
           src={instagram_logo}

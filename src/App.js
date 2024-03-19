@@ -17,6 +17,7 @@ function App() {
   const [Access_Token, SetAccess_Token] = useState(null);
   const [Token_Type, SetToken_Type] = useState(null);
   const [User_id, SetUser_id] = useState("");
+  const [error, SetError] = useState(false);
 
   useEffect(() => {
     // Gets the LocalStorage stored Item and reset the State
@@ -74,6 +75,14 @@ function App() {
       });
   }, []);
 
+  const OpenErrorHandler = () => {
+    SetError(true);
+  };
+
+  const CloseErrorHandler = () => {
+    SetError(false);
+  };
+
   const ToggleSigIn = () => {
     SetSignIn(true);
   };
@@ -102,15 +111,16 @@ function App() {
     SetUser_id(user_id);
   };
 
-
   const LogOutHandler = () => {
     localStorage.removeItem("Auth_Token");
     localStorage.removeItem("Token_Type");
     localStorage.removeItem("user_id");
     localStorage.removeItem("username");
     SetLogin(false);
-    SetUsername("")
-    SetAccess_Token("")
+    SetUsername("");
+    SetAccess_Token("");
+    SetToken_Type("");
+    SetUser_id("");
   };
 
   const CloseFormHandler = () => {
@@ -128,9 +138,20 @@ function App() {
           close={CloseFormHandler}
           Token_Type={Token_TypeHandler}
           user_id={User_idHandler}
+          error={error}
+          OpenErrorHandler={OpenErrorHandler}
+          CloseErrorHandler={CloseErrorHandler}
         />
       )}
-      {signup && <SignUp close={CloseFormHandler} username={UsernameHandler} />}
+      {signup && (
+        <SignUp
+          CloseErrorHandler={CloseErrorHandler}
+          username={UsernameHandler}
+          error={error}
+          OpenErrorHandler={OpenErrorHandler}
+          close={CloseFormHandler}
+        />
+      )}
       <Header
         toggleSignIn={ToggleSigIn}
         toggleSignUp={ToggleSigUp}
@@ -154,7 +175,7 @@ function App() {
           user_id={User_id}
         />
       ) : (
-        <p>You need to login or SignUp to post</p>
+        <p>You need to login to Post</p>
       )}
     </>
   );

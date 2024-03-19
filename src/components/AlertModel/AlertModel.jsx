@@ -1,25 +1,25 @@
 import React from "react";
-import "./ErrorModel.css";
+import "./AlertModel.css";
 import Card from "../UI/Card/Card";
 import Button from "../UI/Button/Button";
 
-const ErrorModel = (props) => {
+const AlertModel = (props) => {
   return (
     <>
-      <div className="backdrop" onClick={props.closeError} />
+      <div className="backdrop" onClick={props.CloseErrorHandler} />
       <Card className="modal">
         <header className="header">
-          <h3>Wrong Information</h3>
+          <h3>{props.title}</h3>
         </header>
         <div className="content">
-          <p>You need to provide correct credentials to login</p>
+          <p>{props.message}</p>
         </div>
         <footer className="actions">
-          <Button onClick={props.closeError}>Okay</Button>
+          <Button onClick={props.CloseErrorHandler}>Okay</Button>
         </footer>
       </Card>
     </>
   );
 };
 
-export default ErrorModel;
+export default AlertModel;

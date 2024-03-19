@@ -81,8 +81,7 @@ const Image_url = (props) => {
         .then((data) => {
           console.log(data);
           <Post key={data.id} post={data}></Post>;
-          window.location.reload();
-          window.scrollTo(0, 0);
+          window.location.reload()
         })
         .catch((err) => {
           console.log(err);

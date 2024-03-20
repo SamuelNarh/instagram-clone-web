@@ -17,7 +17,7 @@ function App() {
   const [Access_Token, SetAccess_Token] = useState(null);
   const [Token_Type, SetToken_Type] = useState(null);
   const [User_id, SetUser_id] = useState("");
-  const [error, SetError] = useState(false);
+  const [error, SetError] = useState(null);
 
   useEffect(() => {
     // Gets the LocalStorage stored Item and reset the State
@@ -41,7 +41,7 @@ function App() {
     if (username) {
       localStorage.setItem("username", username);
     }
-  }, [Access_Token, Token_Type, User_id]);
+  }, [Access_Token, Token_Type, User_id, username]);
 
   useEffect(() => {
     fetch(`${BASE_URL}/post/all`)
@@ -96,9 +96,7 @@ function App() {
   };
 
   const UsernameHandler = (username) => {
-    SetUsername(() => {
-      return `Welcome ${username}`;
-    });
+    SetUsername(username);
   };
 
   const Access_TokenHandler = (access_token) => {
@@ -160,7 +158,7 @@ function App() {
       />
       {username && (
         <div className="welcome-message">
-          <h3>{username}</h3>
+          <h3>{`Welcome ${username}`}</h3>
         </div>
       )}
       <div className="app_posts">
@@ -171,6 +169,10 @@ function App() {
               post={post}
               Access_Token={Access_Token}
               Token_Type={Token_Type}
+              username={username}
+              error={error}
+              OpenErrorHandler={OpenErrorHandler}
+              CloseErrorHandler={CloseErrorHandler}
             />
           );
         })}

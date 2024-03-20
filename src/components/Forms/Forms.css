@@ -38,3 +38,10 @@
 .lgbutton:hover {
   background: rgb(24, 24, 145);
 }
+
+.comment{
+  width: 400px;
+  border-top: none;
+  object-fit: contain;
+  height: 1.5rem;
+}

@@ -1,4 +1,3 @@
-
 .backdrop {
   position: fixed;
   top: 0;
@@ -11,11 +10,11 @@
 
 .modal {
   position: fixed;
-  top: 10vh;
-  left: 20%;
-  width: 40%;
+  top: 2vh;
+   width: 25rem;
   z-index: 100;
   overflow: hidden;
+  left: calc(60% - 20rem);
 }
 
 .header {
@@ -34,14 +33,17 @@
 }
 
 .actions {
-  padding: 1rem;
+  padding: 0.2rem;
   display: flex;
   justify-content: flex-end;
 }
 
-@media (min-width: 768px) {
-  .modal {
-    left: calc(62% - 20rem);
-    width: 25rem;
+
+  @media (max-width: 600px) {
+    .modal {
+      top: auto;
+      left: 10%;
+      width: 320px;
+    }
   }
-}
+

@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
 import "./Post.css";
-import Button from "../UI/Button/Button";
+import Card from "../UI/Card/Card";
 import Comment from "../Comment/Comment";
 import AlertModel from "../AlertModel/AlertModel";
 import CommentInput from "../Forms/CommentInput";
+import avatar from "../images/avatar.png";
+import delete_icon from "../images/delete.png";
 
 const BASE_URL = "http://127.0.0.1:8000/";
 
 const Post = (props) => {
   const [imageUrl, SetImageUrl] = useState("");
   const [comments, SetComment] = useState([]);
-
   useEffect(() => {
     if (props.post.image_url_type === "absolute") {
       SetImageUrl(BASE_URL + props.post.image_url);
@@ -21,7 +22,7 @@ const Post = (props) => {
 
   useEffect(() => {
     SetComment(props.post.comments);
-  }, []);
+  }, []); // eslint-disable-next-line
 
   const CommentUpdateHandler = (event) => {
     SetComment(event);
@@ -41,13 +42,14 @@ const Post = (props) => {
     fetch(`http://127.0.0.1:8000/post/delete/${props.post.id}`, requestOptions)
       .then((res) => {
         if (res.ok) {
-          window.location.reload();
+          return res.json();
         }
         props.OpenErrorHandler();
         throw res;
       })
       .then((data) => {
-        console.log(data);
+        window.location.reload();
+        props.DeletePost();
       })
       .catch((err) => {
         console.log(err);
@@ -64,18 +66,18 @@ const Post = (props) => {
       )}
 
       {
-        <div className="post">
+        <Card className="post">
           <div className="post_header">
             <div className="post_header_item">
-              <img className="profile" src="{profile}" alt="profile_pics" />
-              <strong>
-                <em>{props.post.user.username}</em>
-              </strong>
+              <img className="profile" src={avatar} alt="profile_pics" />
+              <p className="profile_name"> {props.post.user.username}</p>
             </div>
             <div>
-              <Button className="delete" onClick={DeleteHandler}>
-                Delete
-              </Button>
+              <img
+                className="delete"
+                src={delete_icon}
+                onClick={DeleteHandler}
+              ></img>
             </div>
           </div>
           <img className="post_image" src={imageUrl} alt="post_image" />
@@ -94,7 +96,7 @@ const Post = (props) => {
               comments={CommentUpdateHandler}
             />
           )}
-        </div>
+        </Card>
       }
     </>
   );

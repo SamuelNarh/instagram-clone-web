@@ -1,19 +1,25 @@
 import React from "react";
 import "./Header.css";
 import Button from "../UI/Button/Button";
-import instagram from "../images/instagram.jpeg";
+import logo from "../images/logo.png";
 
 const Header = (props) => {
   return (
     <div className="head">
       <div className="header-app">
-        <img className="header_image" src={instagram} alt="instagram logo" />
+        <img className="header_image" src={logo} alt="logo logo" />
         {props.Login ? (
-          <Button onClick={props.logout}>Log Out</Button>
+          <Button className="logout" onClick={props.logout}>
+            Log Out
+          </Button>
         ) : (
           <div>
-            <Button onClick={props.toggleSignIn}>Log In</Button>
-            <Button onClick={props.toggleSignUp}>Sign Up</Button>
+            <Button className="login" onClick={props.toggleSignIn}>
+              Log In
+            </Button>
+            <Button className="signup" onClick={props.toggleSignUp}>
+              Sign Up
+            </Button>
           </div>
         )}
       </div>

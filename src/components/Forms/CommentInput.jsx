@@ -1,12 +1,15 @@
 import React, { useState } from "react";
-import Button from "../UI/Button/Button";
 import "./Forms.css";
-import Comment from "../Comment/Comment";
+import comment_img from "../images/comment.png";
+
 
 const CommentInput = (props) => {
   const [Inputcomment, SetInputcomment] = useState("");
   const CommentHandler = (event) => {
     event.preventDefault();
+    if (Inputcomment.trim()<1){
+      return
+    }
 
     const comment = JSON.stringify({
       text: Inputcomment,
@@ -32,10 +35,12 @@ const CommentInput = (props) => {
       })
       .then((data) => {
         fetchAllComments();
-        SetInputcomment("");
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        SetInputcomment("");
       });
 
     const fetchAllComments = () => {
@@ -57,13 +62,14 @@ const CommentInput = (props) => {
   };
   return (
     <>
-      <form onSubmit={CommentHandler}>
+      <form >
         <input
           className="comment"
-          placeholder="Leave a comment ..................."
+          placeholder="Leave a comment ..."
           onChange={InputHandler}
+          value={Inputcomment}
         />
-        <Button type="submit">reply</Button>
+        <img className="comment_img" src={comment_img} onClick={CommentHandler}></img>
       </form>
     </>
   );

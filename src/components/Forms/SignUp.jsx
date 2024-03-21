@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Card from "../UI/Card/Card";
 import Button from "../UI/Button/Button";
 import "./Forms.css";
-import instagram_logo from "../images/instagram.jpeg";
+import logo from "../images/logo.png";
 import AlertModel from "../AlertModel/AlertModel";
 
 const SignUp = (props) => {
@@ -73,16 +73,9 @@ const SignUp = (props) => {
           CloseErrorHandler={CloseSuccessHandler}
         />
       )}
-      <div
-        className="backdrop"
-        onClick={(props.close)}
-      />
+      <div className="backdrop" onClick={props.close} />
       <Card className="formcard">
-        <img
-          src={instagram_logo}
-          className="header_image"
-          alt="instagram_logo"
-        />
+        <img src={logo} className="header_image" alt="logo" />
         <form className="form" onSubmit={SignUpHandler}>
           <label>
             <h3>SignUp</h3>
@@ -92,6 +85,7 @@ const SignUp = (props) => {
             placeholder="Enter your Username"
             value={username}
             onChange={usernameHandler}
+            required
           />
           <input
             type="email"
@@ -104,6 +98,7 @@ const SignUp = (props) => {
             placeholder="Enter your Password"
             onChange={passwordHandler}
             value={password}
+            required
           />
           <Button className="lgbutton" type="submit">
             SignUp

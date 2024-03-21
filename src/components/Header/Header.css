@@ -7,23 +7,38 @@
   display: flex;
   justify-content: space-between;
   top: 0;
-  z-index: 1;
   background-color: white;
   object-fit: contain;
-  padding: 20px;
+  padding: 10px;
 }
 
 .header_image {
   object-fit: contain;
-  width: 100px;
+  width: 80px;
 }
 
 .login {
-  color: rgb(210, 197, 197);
+  color: rgb(255, 255, 255);
   margin-right: 10px;
+  background: rgb(101, 21, 207);
+}
+
+.signup {
+  color: rgb(255, 255, 255);
+  background: rgb(21, 86, 207);
 }
 
 .header_items {
-  margin: 10px;
+  margin: 5px;
   margin-right: 20px;
 }
+
+.logout{
+  background: rgb(201, 51, 51);
+  color: white;
+}
+
+.logout:hover{
+  background: rgb(180, 24, 24);
+}
+

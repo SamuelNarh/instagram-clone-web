@@ -15,7 +15,7 @@ const AlertModel = (props) => {
           <p>{props.message}</p>
         </div>
         <footer className="actions">
-          <Button onClick={props.CloseErrorHandler}>Okay</Button>
+          <Button className="login" onClick={props.CloseErrorHandler}>Okay</Button>
         </footer>
       </Card>
     </>

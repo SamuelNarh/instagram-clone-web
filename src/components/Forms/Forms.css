@@ -1,10 +1,12 @@
 .formcard {
   background: #ffff;
   position: fixed;
-  top: 30vh;
+  top: 20vh;
   left: 40%;
   z-index: 100;
   overflow: hidden;
+  width: 350px;
+  border-radius: 10px;
 }
 
 .form {
@@ -39,9 +41,33 @@
   background: rgb(24, 24, 145);
 }
 
-.comment{
+.comment {
   width: 400px;
+  height: 1.2rem;
   border-top: none;
-  object-fit: contain;
-  height: 1.5rem;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px dotted;
+  padding-left: 20px;
+}
+.comment_img {
+  width: 20px;
+  /* padding-left: 30px; */
+}
+.comment_img:hover {
+  cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  .formcard {
+    top: 20vh;
+    left: 15%;
+    max-width: 300px;
+  }
+  .comment {
+    width: 250px;
+  }
+  .comment_img {
+    width: 20px;
+  }
 }

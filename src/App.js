@@ -126,6 +126,8 @@ function App() {
     SetSignUp(null);
   };
 
+  const DeletePostHandler = () => {};
+
   return (
     <>
       {signin && (
@@ -139,6 +141,7 @@ function App() {
           error={error}
           OpenErrorHandler={OpenErrorHandler}
           CloseErrorHandler={CloseErrorHandler}
+          LogIn={LogIn}
         />
       )}
       {signup && (
@@ -173,6 +176,7 @@ function App() {
               error={error}
               OpenErrorHandler={OpenErrorHandler}
               CloseErrorHandler={CloseErrorHandler}
+              DeletePost={DeletePostHandler}
             />
           );
         })}

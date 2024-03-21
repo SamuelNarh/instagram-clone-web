@@ -94,13 +94,13 @@ const Image_url = (props) => {
     <Card className="post image-post">
       <form onSubmit={PostHandler} className="image-post">
         <textarea
-          rows="7"
+          rows="5"
           placeholder="Enter your caption"
           type="text"
           onChange={captionHandler}
           value={Caption}
         />
-        <input type="file" id="fileInput" onChange={ImageFileHandler} />
+        <input type="file" id="fileInput" onChange={ImageFileHandler} required/>
         <Button type="submit" className="lgbutton">
           Upload
         </Button>

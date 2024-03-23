@@ -159,7 +159,7 @@ function App() {
         Login={Access_Token}
         logout={LogOutHandler}
       />
-      ,<h1 className="title">Welcome My to Fun Post</h1>
+      ,<h1 className="title">Welcome To My Fun Post</h1>
       {username && (
         <div className="welcome-message">
           <h3>{`Welcome ${username}`}</h3>

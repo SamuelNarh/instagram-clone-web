@@ -26,7 +26,7 @@ const CommentInput = (props) => {
       body: comment,
     };
 
-    fetch(`http://127.0.0.1:8000/comment/`, requestOptions)
+    fetch(`https://instagram-samuelnarh.koyeb.app/comment/`, requestOptions)
       .then((res) => {
         if (res.ok) {
           return res.json();
@@ -44,7 +44,9 @@ const CommentInput = (props) => {
       });
 
     const fetchAllComments = () => {
-      fetch(`http://127.0.0.1:8000/comment/all/${props.post_id}`)
+      fetch(
+        `https://instagram-samuelnarh.koyeb.app/comment/all/${props.post_id}`
+      )
         .then((res) => {
           if (res.ok) {
             return res.json();
@@ -52,7 +54,6 @@ const CommentInput = (props) => {
           throw res;
         })
         .then((data) => {
-          console.log(data);
           props.comments(data);
         });
     };

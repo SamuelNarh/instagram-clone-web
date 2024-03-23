@@ -32,7 +32,7 @@ const Image_url = (props) => {
       body: imagedata,
     };
 
-    fetch(`http://127.0.0.1:8000/post/image`, requestOptions)
+    fetch(`https://instagram-samuelnarh.koyeb.app/post/image`, requestOptions)
       .then((res) => {
         if (res.ok) {
           return res.json();
@@ -40,7 +40,6 @@ const Image_url = (props) => {
         throw res;
       })
       .then((data) => {
-        console.log(data);
         //create our post
         createPost(data.filename);
       })
@@ -71,7 +70,7 @@ const Image_url = (props) => {
         }),
         body: postdata,
       };
-      fetch(`http://127.0.0.1:8000/post`, requestOptions)
+      fetch(`https://instagram-samuelnarh.koyeb.app/post`, requestOptions)
         .then((res) => {
           if (res.ok) {
             return res.json();
@@ -81,8 +80,8 @@ const Image_url = (props) => {
         .then((data) => {
           console.log(data);
           <Post key={data.id} post={data}></Post>;
-          window.location.reload()
-          window.scrollTo(0,0)
+          window.location.reload();
+          window.scrollTo(0, 0);
         })
         .catch((err) => {
           console.log(err);
@@ -100,7 +99,12 @@ const Image_url = (props) => {
           onChange={captionHandler}
           value={Caption}
         />
-        <input type="file" id="fileInput" onChange={ImageFileHandler} required/>
+        <input
+          type="file"
+          id="fileInput"
+          onChange={ImageFileHandler}
+          required
+        />
         <Button type="submit" className="lgbutton">
           Upload
         </Button>

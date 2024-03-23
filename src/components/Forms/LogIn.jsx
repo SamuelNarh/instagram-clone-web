@@ -39,7 +39,7 @@ const LoginInForm = (props) => {
       body: dataform,
     };
 
-    fetch(`http://127.0.0.1:8000/login`, requestOptions)
+    fetch(`https://instagram-samuelnarh.koyeb.app/login`, requestOptions)
       .then((res) => {
         if (res.ok) {
           return res.json();

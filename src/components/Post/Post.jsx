@@ -7,7 +7,7 @@ import CommentInput from "../Forms/CommentInput";
 import avatar from "../images/avatar.png";
 import delete_icon from "../images/delete.png";
 
-const BASE_URL = "http://127.0.0.1:8000/";
+const BASE_URL = "https://instagram-samuelnarh.koyeb.app/";
 
 const Post = (props) => {
   const [imageUrl, SetImageUrl] = useState("");
@@ -39,7 +39,10 @@ const Post = (props) => {
       }),
     };
 
-    fetch(`http://127.0.0.1:8000/post/delete/${props.post.id}`, requestOptions)
+    fetch(
+      `https://instagram-samuelnarh.koyeb.app/post/delete/${props.post.id}`,
+      requestOptions
+    )
       .then((res) => {
         if (res.ok) {
           return res.json();

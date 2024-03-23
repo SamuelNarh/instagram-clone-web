@@ -42,7 +42,7 @@ const SignUp = (props) => {
       headers: { "Content-Type": "application/json" },
       body: json_string,
     };
-    fetch(`http://127.0.0.1:8000/user/`, requestOptions)
+    fetch(`https://instagram-samuelnarh.koyeb.app/user/`, requestOptions)
       .then((res) => {
         if (res.ok) {
           return res.json();
@@ -50,7 +50,6 @@ const SignUp = (props) => {
         throw res;
       })
       .then((data) => {
-        console.log(data);
         SetUsername(data.username);
         SetSignUpSuccess(true);
         return;

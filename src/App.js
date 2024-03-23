@@ -6,7 +6,7 @@ import LoginIn from "./components/Forms/LogIn";
 import SignUp from "./components/Forms/SignUp";
 import PostImage from "./components/Post-Image/Post-Image";
 
-const BASE_URL = "http://127.0.0.1:8000";
+const BASE_URL = "https://instagram-samuelnarh.koyeb.app";
 
 function App() {
   const [posts, SetPost] = useState([]);

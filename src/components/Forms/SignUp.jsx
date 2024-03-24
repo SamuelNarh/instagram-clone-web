@@ -3,13 +3,11 @@ import Card from "../UI/Card/Card";
 import Button from "../UI/Button/Button";
 import "./Forms.css";
 import logo from "../images/logo.png";
-import AlertModel from "../AlertModel/AlertModel";
 
 const SignUp = (props) => {
   const [username, SetUsername] = useState("");
   const [email, SetEmail] = useState("");
   const [password, SetPassword] = useState("");
-  const [SignUpSuccess, SetSignUpSuccess] = useState(null);
 
   const usernameHandler = (event) => {
     SetUsername(event.target.value);
@@ -22,9 +20,6 @@ const SignUp = (props) => {
     SetPassword(event.target.value);
   };
 
-  const CloseSuccessHandler = () => {
-    SetSignUpSuccess(false);
-  };
 
   const SignUpHandler = (event) => {
     event.preventDefault();
@@ -50,9 +45,9 @@ const SignUp = (props) => {
         throw res;
       })
       .then((data) => {
-        SetUsername(data.username);
-        SetSignUpSuccess(true);
-        return;
+         props.Username(data.username);
+         props.OpenSuccessHandler();
+         props.closeSignUp();
       })
       .catch((err) => {
         console.log(err);
@@ -65,13 +60,6 @@ const SignUp = (props) => {
 
   return (
     <>
-      {SignUpSuccess && (
-        <AlertModel
-          message={`Welcome ${username} .I am happy to have you here!!!`}
-          title={`Succeful Sign Up`}
-          CloseErrorHandler={CloseSuccessHandler}
-        />
-      )}
       <div className="backdrop" onClick={props.close} />
       <Card className="formcard">
         <img src={logo} className="header_image" alt="logo" />

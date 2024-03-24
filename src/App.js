@@ -5,6 +5,7 @@ import Header from "./components/Header/Header";
 import LoginIn from "./components/Forms/LogIn";
 import SignUp from "./components/Forms/SignUp";
 import PostImage from "./components/Post-Image/Post-Image";
+import AlertModel from "./components/AlertModel/AlertModel";
 
 const BASE_URL = "https://instagram-samuelnarh.koyeb.app";
 
@@ -18,6 +19,7 @@ function App() {
   const [Token_Type, SetToken_Type] = useState(null);
   const [User_id, SetUser_id] = useState("");
   const [error, SetError] = useState(null);
+  const [SignUpSuccess, SetSignUpSuccess] = useState(null);
 
   useEffect(() => {
     // Gets the LocalStorage stored Item and reset the State
@@ -95,6 +97,19 @@ function App() {
     SetLogin(true);
   };
 
+  
+  const closeSignUp = () => {
+    SetSignUp(false);
+  };
+
+  const OpenSuccessHandler = () => {
+    SetSignUpSuccess(true);
+  };
+
+  const CloseSuccessHandler = () => {
+    SetSignUpSuccess(false);
+  };
+
   const UsernameHandler = (username) => {
     SetUsername(username);
   };
@@ -130,6 +145,13 @@ function App() {
 
   return (
     <>
+      {SignUpSuccess && (
+        <AlertModel
+          message={`Welcome ${username} .I am happy to have you here!!!`}
+          title={`Successful Sign Up`}
+          CloseErrorHandler={CloseSuccessHandler}
+        />
+      )}
       {signin && (
         <LoginIn
           SignIn={SignIn}
@@ -151,6 +173,10 @@ function App() {
           error={error}
           OpenErrorHandler={OpenErrorHandler}
           close={CloseFormHandler}
+          toggleSignUp={ToggleSigUp}
+          closeSignUp={closeSignUp}
+          OpenSuccessHandler={OpenSuccessHandler}
+          Username={UsernameHandler}
         />
       )}
       <Header
@@ -160,7 +186,7 @@ function App() {
         logout={LogOutHandler}
       />
       ,<h1 className="title">Welcome To My Fun Post</h1>
-      {username && (
+      {Access_Token && (
         <div className="welcome-message">
           <h3>{`Welcome ${username}`}</h3>
         </div>

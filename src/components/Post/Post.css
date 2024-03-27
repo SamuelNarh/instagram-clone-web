@@ -60,6 +60,19 @@
   cursor: pointer;
 }
 
+.like{
+  width: 20px;
+  padding-top: 5px;
+}
+
+.like:hover{
+  cursor: pointer;
+}
+
+.liked{
+  color: rgb(164, 31, 31);
+}
+
 @media (max-width: 600px) {
 .post {
   width: 100%;

@@ -72,7 +72,7 @@ const SignUp = (props) => {
       {emailExist && (
         <AlertModel
           title="Email Exist"
-          message={`Oopss!!! Email already exist in my database \n Use any dummy email`}
+          message={`Oopss!!! Email already exist in my database... Use any dummy email`}
           CloseErrorHandler={CloseEmailError}
         ></AlertModel>
       )}

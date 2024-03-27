@@ -2,13 +2,12 @@ import React, { useState } from "react";
 import "./Forms.css";
 import comment_img from "../images/comment.png";
 
-
 const CommentInput = (props) => {
   const [Inputcomment, SetInputcomment] = useState("");
   const CommentHandler = (event) => {
     event.preventDefault();
-    if (Inputcomment.trim()<1){
-      return
+    if (Inputcomment.trim().length < 1) {
+      return;
     }
 
     const comment = JSON.stringify({
@@ -63,14 +62,20 @@ const CommentInput = (props) => {
   };
   return (
     <>
-      <form >
+      <form>
         <input
           className="comment"
           placeholder="Leave a comment ..."
           onChange={InputHandler}
           value={Inputcomment}
+          required
         />
-        <img className="comment_img" src={comment_img} onClick={CommentHandler}></img>
+        <img
+          className="comment_img"
+          src={comment_img}
+          onClick={CommentHandler}
+          required
+        ></img>
       </form>
     </>
   );

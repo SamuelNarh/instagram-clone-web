@@ -6,12 +6,16 @@ import AlertModel from "../AlertModel/AlertModel";
 import CommentInput from "../Forms/CommentInput";
 import avatar from "../images/avatar.png";
 import delete_icon from "../images/delete.png";
+import love from "../images/love.png";
+
 
 const BASE_URL = "https://instagram-samuelnarh.koyeb.app/";
 
 const Post = (props) => {
   const [imageUrl, SetImageUrl] = useState("");
   const [comments, SetComment] = useState([]);
+  const [liked,SetLiked]=useState("")
+  const [likesCount, SetlikesCount] = useState(0);
   useEffect(() => {
     if (props.post.image_url_type === "absolute") {
       SetImageUrl(BASE_URL + props.post.image_url);
@@ -26,6 +30,12 @@ const Post = (props) => {
 
   const CommentUpdateHandler = (event) => {
     SetComment(event);
+  };
+
+
+  const LikeHandler = () => {
+    SetLiked("liked");
+    SetlikesCount(likesCount + 1);
   };
 
   // Handle Deletion of Post
@@ -84,6 +94,18 @@ const Post = (props) => {
             </div>
           </div>
           <img className="post_image" src={imageUrl} alt="post_image" />
+          <div>
+            <img src={love} onClick={LikeHandler} className={`like liked`} />
+            <span className="like_text">
+              {likesCount === 0 ? (
+                <p>No likes yet</p>
+              ) : likesCount === 1 ? (
+                <p>{likesCount} like</p>
+              ) : (
+                <p> {likesCount} likes</p>
+              )}
+            </span>
+          </div>
           <h4 className="post_text">{props.post.caption}</h4>
           <div className="post_comments">
             {comments.map((comment) => {

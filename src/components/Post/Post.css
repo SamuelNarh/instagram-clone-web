@@ -70,7 +70,7 @@
 }
 
 .liked{
-  color: rgb(164, 31, 31);
+  background: rgb(31, 45, 196);
 }
 
 @media (max-width: 600px) {

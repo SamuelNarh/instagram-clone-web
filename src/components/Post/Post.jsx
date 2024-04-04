@@ -7,15 +7,17 @@ import CommentInput from "../Forms/CommentInput";
 import avatar from "../images/avatar.png";
 import delete_icon from "../images/delete.png";
 import Like from "../Like/Like";
-import love from "../images/love.png";
+import Love_img from "../images/love.png";
 
 const BASE_URL = "https://instagram-samuelnarh.koyeb.app/";
 
 const Post = (props) => {
   const [imageUrl, SetImageUrl] = useState("");
   const [comments, SetComment] = useState([]);
-  const [Likes, SetLikes] = useState([]);
   const [Liked, SetLiked] = useState("");
+  const [count, SetCount] = useState(0);
+  const [loved, SetLoved] = useState([]);
+
   useEffect(() => {
     if (props.post.image_url_type === "absolute") {
       SetImageUrl(BASE_URL + props.post.image_url);
@@ -26,7 +28,8 @@ const Post = (props) => {
 
   useEffect(() => {
     SetComment(props.post.comments);
-    SetLikes(props.post.like);
+    props.post.like.map((count) => SetCount(count.total));
+    SetLoved(props.post.like);
   }, []);
 
   const CommentUpdateHandler = (event) => {
@@ -37,7 +40,7 @@ const Post = (props) => {
   const DeleteHandler = (event) => {
     event.preventDefault();
     const requestOptions = {
-      method: "GET",
+      method: "DELETE",
       //for authorization at the backend, we need token_type and access_token to verify user.
       headers: new Headers({
         Authorization: props.Token_Type + " " + props.Access_Token,
@@ -55,7 +58,7 @@ const Post = (props) => {
         props.OpenErrorHandler();
         throw res;
       })
-      .then((data) => {
+      .then(() => {
         window.location.reload();
         props.DeletePost();
       })
@@ -64,24 +67,84 @@ const Post = (props) => {
       });
   };
 
-  //Handle Like 
+  //Handle Like
   const LikeHandler = () => {
+    console.log(props.post);
     SetLiked("liked");
-    // SetLiked("liked");
-    // console.log(Love)
-    // const RequestBody = JSON.stringify({
-    //   total: props.like.total+1,
-    //   post_id: props.post.id,
-    // });
-    // const requestOptions = {
-    //   method: "POST",
-    //   body: RequestBody,
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    // };
-    // fetch(`https://instagram-samuelnarh.koyeb.app/like`,requestOptions);
+    if (count === 0) {
+      SetCount(count + 1);
+      const RequestBody = JSON.stringify({
+        total: count + 1,
+        post_id: props.post.id,
+      });
+      const requestOptions = {
+        method: "POST",
+        body: RequestBody,
+        headers:({
+          Authorization: props.Token_Type + " " + props.Access_Token,
+          "Content-Type": "application/json",
+        }),
+      };
+      fetch(`https://instagram-samuelnarh.koyeb.app/like`, requestOptions)
+        .then((res) => {
+          if (res.ok) {
+            return res.json();
+          }
+          throw res;
+        })
+        .then((data) => {
+          getallLikes();
+          // window.location.reload()
+        })
+        .catch((err) => console.log(err));
+    }
+    // Count more than 1
+    const UpdateLike = JSON.stringify({
+      total: count + 1,
+      post_id: props.post.id,
+    });
+    const requestOptions = {
+      method: "PUT",
+      body: UpdateLike,
+      headers: new Headers({
+        Authorization: props.Token_Type + " " + props.Access_Token,
+        "Content-Type": "application/json",
+      }),
+    };
+
+    fetch(
+      `https://instagram-samuelnarh.koyeb.app/like/update/${props.post.id}`,
+      requestOptions
+    )
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        console.log("Something went wrong");
+        throw res;
+      })
+      .then((data) => {
+        // getallLikes();
+        console.log("okay");
+      })
+      .catch((err) => console.log(err));
   };
+
+  const getallLikes = () => {
+    fetch(`https://instagram-samuelnarh.koyeb.app/like/all/${props.post.id}`)
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        throw res;
+      })
+      .then((data) => {
+        SetLoved(data);
+        console.log(data);
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <>
       {props.error && (
@@ -108,11 +171,15 @@ const Post = (props) => {
             </div>
           </div>
           <img className="post_image" src={imageUrl} alt="post_image" />
-          <img src={love} onClick={LikeHandler} className={`like ${Liked}`} />
-          {Likes.map((like) => {
-            console.log(like.total)
-            return <Like key={like.id} like={like} />;
-          })}
+          <img
+            src={Love_img}
+            onClick={LikeHandler}
+            className={`like ${Liked}`}
+          />
+          {count===0?<p>No like yet</p>:null}
+          {loved.map((count) => (
+            <Like key={count.id} count={count} />
+          ))}
           <h4 className="post_text">{props.post.caption}</h4>
           <div className="post_comments">
             {comments.map((comment) => {

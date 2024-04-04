@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Forms.css";
-import comment_img from "../images/comment.png";
+import Button from "../UI/Button/Button";
 
 const CommentInput = (props) => {
   const [Inputcomment, SetInputcomment] = useState("");
@@ -62,7 +62,7 @@ const CommentInput = (props) => {
   };
   return (
     <>
-      <form>
+      <form onSubmit={CommentHandler}>
         <input
           className="comment"
           placeholder="Leave a comment ..."
@@ -70,12 +70,9 @@ const CommentInput = (props) => {
           value={Inputcomment}
           required
         />
-        <img
-          className="comment_img"
-          src={comment_img}
-          onClick={CommentHandler}
-          required
-        ></img>
+        <Button type="submit" className="comment__btn" required>
+          comment
+        </Button>
       </form>
     </>
   );

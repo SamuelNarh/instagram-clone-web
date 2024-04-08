@@ -63,8 +63,11 @@
 .like{
   width: 20px;
   padding-top: 5px;
+  padding-left: 10px;
 }
-
+.like_text{
+  padding-left: 10px;
+}
 .like:hover{
   cursor: pointer;
 }

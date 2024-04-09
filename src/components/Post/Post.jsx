@@ -29,7 +29,7 @@ const Post = (props) => {
     SetComment(props.post.comments);
     props.post.like.map((count) => SetCount(count.total));
     SetLoved(props.post.like);
-  });
+  },[count]);
 
   const CommentUpdateHandler = (event) => {
     SetComment(event);
@@ -90,7 +90,7 @@ const Post = (props) => {
         })
         .then(() => {
           getallLikes();
-          window.location.reload();
+          // window.location.reload();
         })
         .catch((err) => console.log(err));
     }
@@ -137,7 +137,7 @@ const Post = (props) => {
       })
       .then((data) => {
         SetLoved(data);
-        window.location.reload();
+        // window.location.reload();
       })
       .catch((err) => console.log(err));
   };
@@ -169,7 +169,7 @@ const Post = (props) => {
           </div>
           <img className="post_image" src={imageUrl} alt="post_image" />
           <div>
-            <img src={Love_img} onClick={LikeHandler} className={`like`} />
+            <img src={Love_img} onClick={LikeHandler} className={`like || ${count}`} />
               {count === 0 ? <p>No like yet</p> : null}
               {loved.map((count) => (
                 <Like key={count.id} count={count} />

@@ -30,6 +30,12 @@ function App() {
   }, []);
 
   useEffect(() => {
+    setTimeout(() => {
+     return LogOutHandler() 
+    }, 600000);
+  }, []);
+
+  useEffect(() => {
     // If granted access =>stores data into local storage
     if (Access_Token) {
       localStorage.setItem("Auth_Token", Access_Token);
@@ -97,7 +103,6 @@ function App() {
     SetLogin(true);
   };
 
-  
   const closeSignUp = () => {
     SetSignUp(false);
   };

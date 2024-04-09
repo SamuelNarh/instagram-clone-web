@@ -32,7 +32,7 @@ const Post = (props) => {
   useEffect(() => {
     props.post.like.map((count) => SetCount(count.total));
     SetLoved(props.post.like);
-  },[]);
+  }, []);
 
   const CommentUpdateHandler = (event) => {
     SetComment(event);
@@ -72,7 +72,7 @@ const Post = (props) => {
   //Handle Like
   const LikeHandler = () => {
     if (count === 0) {
-      SetCount(count+1);
+      SetCount(count + 1);
       const RequestBody = JSON.stringify({
         total: count + 1,
         post_id: props.post.id,
@@ -131,7 +131,6 @@ const Post = (props) => {
   };
 
   const getallLikes = () => {
-    console.log(props.post.id);
     fetch(`https://instagram-samuelnarh.koyeb.app/like/all/${props.post.id}`)
       .then((res) => {
         if (res.ok) {

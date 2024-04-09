@@ -27,9 +27,12 @@ const Post = (props) => {
 
   useEffect(() => {
     SetComment(props.post.comments);
+  }, []);
+
+  useEffect(() => {
     props.post.like.map((count) => SetCount(count.total));
     SetLoved(props.post.like);
-  },[count]);
+  },[]);
 
   const CommentUpdateHandler = (event) => {
     SetComment(event);
@@ -69,6 +72,7 @@ const Post = (props) => {
   //Handle Like
   const LikeHandler = () => {
     if (count === 0) {
+      SetCount(count+1);
       const RequestBody = JSON.stringify({
         total: count + 1,
         post_id: props.post.id,
@@ -90,13 +94,13 @@ const Post = (props) => {
         })
         .then(() => {
           getallLikes();
-          // window.location.reload();
         })
         .catch((err) => console.log(err));
     }
 
     // Count more than 1
     else {
+      SetCount(count + 1);
       const UpdateLike = JSON.stringify({
         total: count + 1,
         post_id: props.post.id,
@@ -137,7 +141,6 @@ const Post = (props) => {
       })
       .then((data) => {
         SetLoved(data);
-        // window.location.reload();
       })
       .catch((err) => console.log(err));
   };
@@ -169,11 +172,15 @@ const Post = (props) => {
           </div>
           <img className="post_image" src={imageUrl} alt="post_image" />
           <div>
-            <img src={Love_img} onClick={LikeHandler} className={`like || ${count}`} />
-              {count === 0 ? <p>No like yet</p> : null}
-              {loved.map((count) => (
-                <Like key={count.id} count={count} />
-              ))}
+            <img
+              src={Love_img}
+              onClick={LikeHandler}
+              className={`like || ${count}`}
+            />
+            {count === 0 ? <p>No like yet</p> : null}
+            {loved.map((count) => (
+              <Like key={count.id} count={count} />
+            ))}
           </div>
           <h4 className="post_text">{props.post.caption}</h4>
           <div className="post_comments">
